@@ -7,7 +7,8 @@ import "../node_modules/bootstrap/dist/css/bootstrap.css";
 import { BrowserRouter } from 'react-router-dom';
 
 import ReduxStore from './components/store/Reduxstore.jsx';
-import { Provider } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
+
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(

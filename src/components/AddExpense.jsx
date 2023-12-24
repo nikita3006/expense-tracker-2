@@ -11,9 +11,8 @@ function AddExpense() {
     const categoryRef = useRef();
     const dispatch = useDispatch();
     const userEmail = useSelector(state => state.auth.userEmail);
-
     const editingExpense = useSelector(state => state.expense.editingExpense);
-
+    const darkMode = useSelector(state => state.expense.darkMode);
     const userName = userEmail && userEmail.split("@")[0]; 
 
     
@@ -58,8 +57,9 @@ function AddExpense() {
             dispatch(expenseActions.replaceExpenses(loadedData));
         }
         getData();
-    },[])
-    
+        },[userName])
+
+
     const submitHandler = async(event)=>{
         try {
             event.preventDefault();
@@ -93,7 +93,7 @@ function AddExpense() {
     }
   return (
     <section>
-        <div className={classes.expense}>
+        <div className={darkMode ? classes.darkMode: classes.expense}>
             <h2>Daily Expense Tracker</h2>
             <Form onSubmit={submitHandler}>
                 <Form.Group>
@@ -128,6 +128,7 @@ function AddExpense() {
                 <div>
                     <Button variant={editingExpense ? 'warning' : 'primary'}  type='submit' className='mt-3'>{!editingExpense ? "Add Expense" : "Update"}</Button>
                 </div>
+                
             </Form>
         </div>
     </section>

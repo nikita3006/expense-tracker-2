@@ -3,8 +3,17 @@
     margin-right: 2rem;
     font-size: larger;
   }
-  .signup {
+.signup {
     color: rgb(21, 65, 26);
     margin-right: 2rem;
     font-size: larger;
   }
+
+.font{
+      align-items: center;
+      margin: 5px;
+      padding: 5px;
+    margin-left: auto;
+  }
+
+ 

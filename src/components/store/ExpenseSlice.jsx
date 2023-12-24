@@ -3,6 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 const intialExpenseState = {
     expenses :[],
     editingExpense : null,
+    isActive : localStorage.getItem('isActive'),
+    darkMode : localStorage.getItem('darkMode'),
+
 }
 
 const expenseSlice = createSlice({
@@ -33,11 +36,23 @@ const expenseSlice = createSlice({
             state.expenses  = state.expenses.map(
                 (expense)=>( expense.id === updatingExpense.id )? updatingExpense : expense
             )
-            // state.expenses = updatedExpenses;
             state.editingExpense = null;
             console.log(action.payload,'in update expense');
-        }
-    }
+        },
+        activatePremium (state) {
+            // console.log(state.isActive,'in actviepremium')
+            state.isActive = true;
+            localStorage.setItem('isActive',true);
+        },
+        darkMode (state,action){
+            state.darkMode= true;
+            localStorage.setItem('darkMode',state.darkMode)
+        },
+        lightMode(state,action){
+            state.darkMode = false;
+            localStorage.removeItem('darkMode');
+        },
+    },
 })
 
 export const expenseActions = expenseSlice.actions;

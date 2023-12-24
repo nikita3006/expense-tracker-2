@@ -1,6 +1,11 @@
+:root{
+  --background-image-light : url('https://static1.makeuseofimages.com/wordpress/wp-content/uploads/2022/04/6-Best-Expense-Tracking-Apps-for-Android.jpg');
+  --background-image-dark : url('https://e0.pxfuel.com/wallpapers/592/399/desktop-wallpaper-dark-money-money-black.jpg');
+}
+
 body {
   margin: 0;
-  background-image: url("https://static1.makeuseofimages.com/wordpress/wp-content/uploads/2022/04/6-Best-Expense-Tracking-Apps-for-Android.jpg");
+  background-image: var(--background-image);
   background-repeat: no-repeat;
   background-size: cover;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
