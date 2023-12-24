@@ -7,6 +7,7 @@ import CompleteProfile from "./components/CompleteProfile";
 import Verificationpage from "./components/Verificationpage";
 import Expense from "./components/Expense";
 import { useDispatch, useSelector } from "react-redux";
+import ForgotPass from "./components/ForgotPass";
 
 
 function App() {
@@ -40,6 +41,10 @@ function App() {
           <Route exact path="/verify-email">
             {isLogin && <Verificationpage /> }  
             {!isLogin && <Redirect  to="/LoginPage"/>}
+          </Route>
+          <Route exact path="/ForgotPass">
+              {isLogin && <Expense />}
+              {!isLogin && <ForgotPass/>}
           </Route>
           <Route exact path="*"> 
             {isLogin && <Redirect to='/WelcomePage' />}  

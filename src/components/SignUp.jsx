@@ -1,12 +1,13 @@
 import React, { useRef } from "react";
 import { Button, Form, Nav} from "react-bootstrap";
 import classes from "./SignUp.module.css";
-import { NavLink } from "react-router-dom";
+import { NavLink,useHistory } from "react-router-dom";
 
 function SignUp() {
   const inputMailRef = useRef();
   const inputPassRef = useRef();
   const inputConfPass = useRef();
+  const history = useHistory();
 
   const submitHandler = async (event) => {
     try {
@@ -41,6 +42,7 @@ function SignUp() {
 
         const data = await response.json();
         data && alert("account created");
+        data && history.replace("/LoginPage");
         console.log(data, "in sign up data");
       }
     } catch (error) {
