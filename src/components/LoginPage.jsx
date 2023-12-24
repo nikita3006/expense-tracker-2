@@ -38,6 +38,7 @@ function LoginPage() {
                 if(!response.ok){
                     const errorData = await response.json();
                     const message = errorData ? (errorData.error.message) : ('Authentication Failed');
+                    setIsLogin(null)
                     throw new Error(message);
                 }
                 const data = await response.json();
