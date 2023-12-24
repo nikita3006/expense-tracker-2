@@ -4,6 +4,7 @@ import LoginPage from "./components/LoginPage";
 import AfterLogin from "./components/AfterLogin";
 import FirstPageDetails from "./components/FirstPage";
 import CompleteProfile from "./components/CompleteProfile";
+import Verificationpage from "./components/Verificationpage";
 
 
 function App() {
@@ -27,6 +28,9 @@ function App() {
         <Route exact path="/">
           <Redirect to="/LoginPage" />
         </Route>  
+        <Route exact path="/verify-email">
+          <Verificationpage />
+        </Route>
       </Switch>
     </>
   );

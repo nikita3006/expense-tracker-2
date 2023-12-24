@@ -42,7 +42,8 @@ function LoginPage() {
                 }
                 const data = await response.json();
                 data && alert('Login Successfull');
-                data && history.replace("/WelcomePage");
+                data && history.replace("/verify-email");
+                authCtx.login(data.idToken,enteredMail)
                 
             }
         } catch (error) {

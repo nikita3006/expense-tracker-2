@@ -33,6 +33,7 @@ export const AuthContextProvider = (props) => {
 
   const loginHandler = (token,email) => {
     setToken(token);
+    console.log(token,'inauthctx');
     localStorage.setItem("token", token);
     localStorage.setItem("email", email);
     setUserIsLoggedIn(true);
