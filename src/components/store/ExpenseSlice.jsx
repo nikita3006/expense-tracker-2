@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+const active = localStorage.getItem('isActive');
 
 const intialExpenseState = {
     expenses :[],
     editingExpense : null,
-    isActive : localStorage.getItem('isActive'),
+    isActive : active,
     darkMode : localStorage.getItem('darkMode'),
 
 }
