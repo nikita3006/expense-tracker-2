@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import ExpenseContext from './store/ExpenseContext'
-import { Table } from 'react-bootstrap';
+import { Button, Table } from 'react-bootstrap';
 
 function ExpenseList() {
     const expenseCtx = useContext(ExpenseContext);
@@ -8,20 +8,26 @@ function ExpenseList() {
   return (
     <div>
         <h3 className="text-center mt-5 text-white">Expenses</h3>
-        <Table striped bordered hover variant='light' className='container'>
-            <thead>
+        <Table striped bordered hover variant='light' style={{width:'900px'}} className='container'>
+            <thead style={{textAlign:'center'}}>
                 <tr>
                     <th>Amount</th>
                     <th>Description</th>
                     <th>Category</th>
+                    <th>Buttons</th>
+                    
                 </tr>
             </thead>
             <tbody>
                 {expenseCtx.expenses.map((expense,index)=>(
-                    <tr key={index}>
+                    <tr key={index} style={{textAlign:'center'}}>
                         <td>{expense.amount}</td>
                         <td>{expense.description}</td>
                         <td>{expense.category}</td>
+                        <td style={{display:"flex",justifyContent:'space-evenly'}}>
+                        <Button variant="primary"className='mx-2' onClick={expenseCtx.editExpense.bind(null,expense)}>Edit</Button>
+                        <Button variant="danger" className='mx-2' onClick={expenseCtx.deleteExpense.bind(null,expense)}>Delete</Button></td>
+        
                     </tr>
                 ))}
             </tbody>

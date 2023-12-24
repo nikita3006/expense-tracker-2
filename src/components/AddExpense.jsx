@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import { Button, Form } from 'react-bootstrap'
 import ExpenseContext from './store/ExpenseContext';
 import classes from './AddExpense.module.css';
@@ -9,6 +9,14 @@ function AddExpense() {
     const categoryRef = useRef();
 
     const expenseCtx = useContext(ExpenseContext);
+
+    useEffect(()=>{
+        if(expenseCtx.isEdit){
+            amountRef.current.value=expenseCtx.isEdit.amount;
+            descriptionRef.current.value = expenseCtx.isEdit.description;
+            categoryRef.current.value= expenseCtx.isEdit.category;
+        }
+    })
     
     const submitHandler = (event)=>{
         event.preventDefault();
@@ -17,11 +25,18 @@ function AddExpense() {
             description : descriptionRef.current.value,
             category : categoryRef.current.value
         }
+        if(expenseCtx.isEdit){
+            expenseCtx.updateExpenseHandler({...expenseList,id:expenseCtx.isEdit.id})
+            clearFields();
+            return;
+        }
         expenseCtx.addExpense(expenseList);
+        clearFields()
+    }
+    const clearFields = ()=>{
         amountRef.current.value='';
         descriptionRef.current.value='';
         categoryRef.current.value='';
-
     }
   return (
     <section>
@@ -51,14 +66,14 @@ function AddExpense() {
                 <Form.Group>
                     <Form.Label>Category:</Form.Label>   
                     <Form.Select as='select' ref={categoryRef} required>
-                        <option value="Food">--Choose Category</option>
+                        <option value="" hidden>--Choose Category</option>
                         <option value="Food">Food</option>
                         <option value="Petrol">Petrol</option>
                         <option value="Salary">Salary</option>
                     </Form.Select>
                 </Form.Group>
                 <div>
-                    <Button variant='primary' type='submit' className='mt-3'>Add Expense</Button>
+                    <Button variant={expenseCtx.isEdit ? 'warning' : 'primary'}  type='submit' className='mt-3'>{!expenseCtx.isEdit ? "Add Expense" : "Update"}</Button>
                 </div>
             </Form>
         </div>
