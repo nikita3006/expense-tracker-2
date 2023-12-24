@@ -15,7 +15,7 @@ const FirstPageDetails = () => {
 
 
   return (
-    <Navbar
+    <Navbar style={{marginTop : "450px"}}
       bg="white"
       expand="lg"
       variant="light"
@@ -39,7 +39,7 @@ const FirstPageDetails = () => {
           )}
           {authCtx.isLoggedIn && (
             <NavLink
-              to="/"
+              to="/LoginPage"
               className={classes.font}
               style={{ color: "Red" }}
               onClick={logout}
