@@ -1,23 +1,20 @@
-import React, { useState } from 'react';
-import { Button } from 'react-bootstrap';
-import { useHistory } from "react-router-dom";
+import React from 'react';
+import classes from "./AfterLogin.module.css";
+import { NavLink } from "react-router-dom";
 
 function AfterLogin() {
-    const history = useHistory();
-    const [isLogin,setIsLogin]=useState(false);
-    
-    const SwitchMode = (prev)=>{
-        setIsLogin((prev)=> !prev);
-    }
 
   return (
     <>
-        <div>
-            <h1>Welcome to Expense Tracker</h1>
+       <div className={classes.body}>
+            <h1>Welcome To Expense Tracker!!!</h1>
+            <h4>
+            Your Profile incomplete.
+            <NavLink to="/completeProfile">Complete Now</NavLink>
+            </h4>
+            <hr />
         </div>
-        <Button onClick={SwitchMode}>Login With other Account
-            {isLogin ? history.replace('/LoginPage'): ""}
-        </Button>
+        
 
     </>
   )
