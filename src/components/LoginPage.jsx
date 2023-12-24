@@ -58,7 +58,7 @@ function LoginPage() {
     const submitHandler= async(event)=>{
         try {   
             event.preventDefault();
-            setIsLogin(true);
+            setLogin(true);
             authCtx.login();
             const enteredMail = inputMailRef.current.value;
             const enteredPass = inputPassRef.current.value;
@@ -84,7 +84,7 @@ function LoginPage() {
                 }
                 const data = await response.json();
                 data && alert('Login Successfull');
-                data && history.replace("/verify-email");
+                data && history.replace("/ExpenseDetails");
                 authCtx.login(data.idToken,enteredMail)
                 
             }

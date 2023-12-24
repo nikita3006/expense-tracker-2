@@ -5,6 +5,7 @@ import AfterLogin from "./components/AfterLogin";
 import FirstPageDetails from "./components/FirstPage";
 import CompleteProfile from "./components/CompleteProfile";
 import Verificationpage from "./components/Verificationpage";
+import Expense from "./components/Expense";
 
 
 function App() {
@@ -30,6 +31,9 @@ function App() {
         </Route>  
         <Route exact path="/verify-email">
           <Verificationpage />
+        </Route>
+        <Route exact path='/ExpenseDetails'>
+          <Expense/>
         </Route>
       </Switch>
     </>
