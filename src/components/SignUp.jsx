@@ -1,13 +1,22 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Button, Form, Nav} from "react-bootstrap";
 import classes from "./SignUp.module.css";
 import { NavLink,useHistory } from "react-router-dom";
+import { BsEye, BsEyeSlash } from "react-icons/bs";
+
 
 function SignUp() {
   const inputMailRef = useRef();
   const inputPassRef = useRef();
   const inputConfPass = useRef();
   const history = useHistory();
+
+  const [showConfPassword,setShowConfPassword]= useState(false)
+  const [showPassword,setShowPassword] = useState(false);
+
+  const showPasswordHandler=()=>{
+    setShowConfPassword(!showConfPassword)
+  }
 
   const submitHandler = async (event) => {
     try {
@@ -65,25 +74,32 @@ function SignUp() {
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            required
-            minLength="7"
-            ref={inputPassRef}
-            autoComplete='new-password'
-          />
+          <div className="input-group">
+            <Form.Control
+              type={showPassword ?'text' : 'password'}
+              placeholder="Password"
+              required
+              minLength="7"
+              ref={inputPassRef}
+              autoComplete='new-password'
+            />
+            <Button className="input-group-append" onClick={()=>{setShowPassword(!showPassword)}}>{showPassword ? <BsEyeSlash /> : <BsEye />}</Button> 
+          </div>
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Confirm Password</Form.Label>
+          <div className="input-group">
           <Form.Control
-            type="password"
+            type={showPassword ? 'text': 'password'}
             placeholder="Password"
             required
             minLength="7"
             ref={inputConfPass}
             autoComplete='new-password'
           />
+          <Button className="input-group-append" onClick={showPasswordHandler}>{showPassword ? <BsEyeSlash /> : <BsEye />}</Button> 
+          </div>
+
         </Form.Group>
 
         <div>

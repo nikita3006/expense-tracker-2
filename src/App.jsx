@@ -12,6 +12,7 @@ import ForgotPass from "./components/ForgotPass";
 
 function App() {
   const isLogin = useSelector((state)=>state.auth.isLoggedIn)
+  const forgotPass = useSelector(state => state.auth.forgotPass);
   return (
     <>
       <FirstPageDetails/>
@@ -44,7 +45,8 @@ function App() {
           </Route>
           <Route exact path="/ForgotPass">
               {isLogin && <Expense />}
-              {!isLogin && <ForgotPass/>}
+              {forgotPass && !isLogin && <ForgotPass/>}
+              {!forgotPass && <Redirect to='/LoginPage'/>}
           </Route>
           <Route exact path="*"> 
             {isLogin && <Redirect to='/WelcomePage' />}  

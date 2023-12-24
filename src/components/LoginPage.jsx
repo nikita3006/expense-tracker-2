@@ -2,8 +2,9 @@ import React, {  useRef, useState } from 'react'
 import { Button, Form,Nav } from 'react-bootstrap'
 import { NavLink, useHistory } from "react-router-dom";
 import classes from './LoginPage.module.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { authActions } from './store/AuthSlice';
+import { BsEye, BsEyeSlash } from "react-icons/bs";
 
 function LoginPage() {
 
@@ -13,6 +14,16 @@ function LoginPage() {
     const inputPassRef = useRef()
 
     const [login, setLogin] = useState(false);
+    
+    const [showPassword, setShowPassword] = useState(false);
+
+    const showPasswordHandler = () => {
+      setShowPassword(!showPassword);
+    };
+
+    const forgotPassHandler = ()=>{
+      dispatch(authActions.forgotPass())
+    }
 
     const submitHandler= async(event)=>{
         try {   
@@ -57,19 +68,22 @@ function LoginPage() {
         <Form onSubmit={submitHandler}>
             <Form.Group className='mb-3'>
                 <Form.Label>Email</Form.Label>
-                <Form.Control type='email' placeholder='Email' ref={inputMailRef} required autoComplete='new-mail'/>  
+                <Form.Control type='email' placeholder='Email' ref={inputMailRef} required autoComplete='new-mail'/> 
             </Form.Group>
             <Form.Group className='mb-3'>
-                <Form.Label>Password</Form.Label>
-                <Form.Control type='password' placeholder='password' ref={inputPassRef} required autoComplete='new-password'/>
+                  <Form.Label>Password</Form.Label>
+                  <div className='input-group'>
+                  <Form.Control type={showPassword ?'text' : 'password'} placeholder='password' ref={inputPassRef} required autoComplete='new-password'/>
+                  <Button className="input-group-append" onClick={showPasswordHandler}>{showPassword ? <BsEyeSlash /> : <BsEye />}</Button> 
+                  </div>
             </Form.Group>
             <div>
                 {!login ? (<Button variant="success pl-2" type="submit">Login</Button>) : (<p style={{ color: "white" }}>Loading...</p>)}
-                  <NavLink to={"/ForgotPass"} style={{ color: "lightblue", marginLeft: "1rem", padding: '0.1rem'}}>
+                  <NavLink to={"/ForgotPass"} style={{ color: "lightblue", marginLeft: "1rem", padding: '0.1rem'}} onClick={forgotPassHandler}>
                       Forgot Password?
                   </NavLink>
             </div>
-            <Nav>
+            <Nav> 
                 <NavLink to={"/SignupPage"} style={{ color: "white", paddingTop: "1rem" }}>
                     Don't have an Account?
                 </NavLink>

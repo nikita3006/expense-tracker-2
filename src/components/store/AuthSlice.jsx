@@ -4,6 +4,7 @@ const initialAuthState = {
     isLoggedIn : localStorage.getItem("isLoggedIn"),
     token : localStorage.getItem('token'),
     userEmail : localStorage.getItem('email'),
+    forgotPass : false,
 }
 
 const authSlice = createSlice({
@@ -26,6 +27,10 @@ const authSlice = createSlice({
             state.userEmail = null;
             localStorage.clear();
 
+        },
+        forgotPass(state,action) {
+            state.forgotPass = !state.forgotPass;
+            console.log(state.forgotPass,'in authslice')
         }
     }
 })
