@@ -1,13 +1,13 @@
-import React, { useContext, useRef, useState } from 'react'
+import React, {  useRef, useState } from 'react'
 import { Button, Form,Nav } from 'react-bootstrap'
 import { NavLink, useHistory } from "react-router-dom";
 import classes from './LoginPage.module.css';
-import AuthContext from './store/AuthContext';
+import { useDispatch } from 'react-redux';
+import { authActions } from './store/AuthSlice';
 
 function LoginPage() {
-    const authCtx = useContext(AuthContext)
 
-
+    const dispatch  = useDispatch();
     const history = useHistory();
     const inputMailRef = useRef()
     const inputPassRef = useRef()
@@ -59,7 +59,6 @@ function LoginPage() {
         try {   
             event.preventDefault();
             setLogin(true);
-            authCtx.login();
             const enteredMail = inputMailRef.current.value;
             const enteredPass = inputPassRef.current.value;
             if(enteredMail==='' || enteredPass === ''){
@@ -79,13 +78,14 @@ function LoginPage() {
                 if(!response.ok){
                     const errorData = await response.json();
                     const message = errorData ? (errorData.error.message) : ('Authentication Failed');
-                    setIsLogin(null)
+                    setLogin(null)
                     throw new Error(message);
                 }
                 const data = await response.json();
                 data && alert('Login Successfull');
                 data && history.replace("/ExpenseDetails");
-                authCtx.login(data.idToken,enteredMail)
+                dispatch(authActions.login({token: data.idToken, email: data.email}));
+                // authCtx.login(data.idToken,enteredMail)
                 
             }
         } catch (error) {
@@ -114,7 +114,7 @@ function LoginPage() {
                 </Button>
             </div>
             <Nav>
-                <NavLink to={"/"} style={{ color: "white", paddingTop: "1rem" }}>
+                <NavLink to={"/SignupPage"} style={{ color: "white", paddingTop: "1rem" }}>
                     Don't have an Account?
                 </NavLink>
             </Nav>

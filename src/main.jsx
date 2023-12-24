@@ -5,15 +5,17 @@ import './index.css'
 
 import "../node_modules/bootstrap/dist/css/bootstrap.css";
 import { BrowserRouter } from 'react-router-dom';
-import { AuthContextProvider } from './components/store/AuthContext.jsx';
-import { ExpenseContextProvider } from './components/store/ExpenseContext.jsx';
+
+import ReduxStore from './components/store/Reduxstore.jsx';
+import { Provider } from 'react-redux';
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>
-    <AuthContextProvider>
-      <ExpenseContextProvider>
-            <App />
-      </ExpenseContextProvider>
-    </AuthContextProvider>
+    <Provider store={ReduxStore}>
+      
+              <App />
+        
+    </Provider>
   </BrowserRouter>
 )
