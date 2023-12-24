@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useState } from 'react'
 import { Button, Form,Nav } from 'react-bootstrap'
-import { Link, NavLink, useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import classes from './LoginPage.module.css';
 import AuthContext from './store/AuthContext';
 
@@ -12,12 +12,53 @@ function LoginPage() {
     const inputMailRef = useRef()
     const inputPassRef = useRef()
 
-    const [login,setIsLogin]= useState(true);
+    const [login, setLogin] = useState(false);
+
+    const ForgotPasswordHandler = () => {
+    alert("you may have received an email with reset link");
+    console.log(emailInputRef.current.value);
+
+    fetch(
+      "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyCBNqXOohJ5C1pTxxgYtTbpbxZc1ncW9fc",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          requestType: "PASSWORD_RESET",
+          email: emailInputRef.current.value,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((res) => {
+        if (res.ok) {
+          console.log("Login succesfullly");
+          console.log(res);
+          return res.json();
+        } else {
+          return res.json().then((data) => {
+            console.log(data);
+            let errorMessage = "Email sent for reset password";
+            if (data && data.error && data.error.message) {
+              errorMessage = data.error.message;
+            }
+            throw new Error(errorMessage);
+          });
+        }
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+  };
 
     const submitHandler= async(event)=>{
         try {   
             event.preventDefault();
-            setIsLogin(false);
+            setIsLogin(true);
             authCtx.login();
             const enteredMail = inputMailRef.current.value;
             const enteredPass = inputPassRef.current.value;
@@ -64,10 +105,13 @@ function LoginPage() {
                 <Form.Control type='password' placeholder='password' ref={inputPassRef} required autoComplete='new-password'/>
             </Form.Group>
             <div>
-                {login ? (<Button variant="success pl-2" type="submit">Login</Button>) : (<p style={{ color: "white" }}>Loading...</p>)}
-                <Link to={"/"} style={{ color: "white", paddingLeft: "2rem" }}>
-                    forgot password?
-                </Link>
+                {!login ? (<Button variant="success pl-2" type="submit">Login</Button>) : (<p style={{ color: "white" }}>Loading...</p>)}
+                <Button
+                    onClick={ForgotPasswordHandler}
+                    style={{ color: "white", marginLeft: "1rem", padding: "0.1rem" }}
+                >
+                    Forgot Password?
+                </Button>
             </div>
             <Nav>
                 <NavLink to={"/"} style={{ color: "white", paddingTop: "1rem" }}>
